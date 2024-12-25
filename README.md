@@ -3,7 +3,7 @@
 run the following commands:
 
 npm init -y
-npm install --save-dev webpack webpack-cli html-webpack-plugin style-loader css-loader html-loader webpack-dev-server
+npm install --save-dev webpack webpack-cli html-webpack-plugin style-loader css-loader html-loader webpack-dev-server jest
 npx eslint --init
 
 to run npm commands, write
