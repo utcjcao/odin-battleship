@@ -1,14 +1,23 @@
 body {
     font-family: monospace;
-    display: flex;    
-    gap: 20px;
+    display: grid;   
+    grid-template-rows: 1fr 14fr; 
+    height: 100vh;
+    padding: 0;
+    margin: 0;
     align-items: center;
-    align-content: center;
+    justify-content: center;
+}
+
+#header {
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid black;
 }
 
 #game-container {
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
     gap: 10px;
 }
 

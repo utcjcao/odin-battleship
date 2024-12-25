@@ -2,6 +2,9 @@ function updateGameView(playerBoard, botBoard) {
   const gameContainer = document.getElementById("game-container");
   gameContainer.innerHTML = "";
 
+  const titleDiv = document.getElementById("messages");
+  titleDiv.innerText = "left side is ur ships, right side is ur guesses";
+
   const botBoardContainer = renderBotBoard(botBoard);
   const playerBoardContainer = renderPlayerBoard(playerBoard);
 

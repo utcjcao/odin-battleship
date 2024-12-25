@@ -21,16 +21,29 @@ async function init(playerBoard, botBoard) {
   }
 }
 
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function setMessage(message) {
+  const messageDiv = document.getElementById("messages");
+  messageDiv.innerText = message;
+}
+
 async function gameLoop(playerBoard, botBoard, controller) {
   await controller.handleUserPlacement();
+  setMessage("robot thinking...");
+  await delay(600);
   controller.handleBotPlacement();
-  if (playerBoard.isGameOver() || botBoard.isGameOver()) {
-    console.log("game over");
+  if (playerBoard.isGameOver()) {
+    setMessage("you lost :(");
+    return true;
+  } else if (botBoard.isGameOver()) {
+    setMessage("you won :)");
     return true;
   } else {
     return false;
   }
-  return false;
 }
 
 async function main() {

@@ -2,6 +2,9 @@ function updateInitView(board, direction, length) {
   const boardContainer = document.getElementById("game-container");
   boardContainer.innerHTML = ""; // clear prev board
 
+  const titleDiv = document.getElementById("messages");
+  titleDiv.innerText = "place your ships. use L to rotate";
+
   const initBoardContainer = document.createElement("div");
   initBoardContainer.id = "init-board"; // clear prev board
 
