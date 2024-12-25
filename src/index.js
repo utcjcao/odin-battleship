@@ -6,7 +6,7 @@ import "./template.css";
 const playerBoard = new Gameboard();
 const botBoard = new Gameboard();
 
-function init(playerBoard, botBoard) {
+async function init(playerBoard, botBoard) {
   // set up empty board
   playerBoard.initBoard();
   botBoard.initBoard();
@@ -14,21 +14,35 @@ function init(playerBoard, botBoard) {
   // set up init controller, creates ships for bot and player
   const initController = new initBoardController(playerBoard, botBoard);
   initController.botInitShips();
-  initController.playerInitShips();
-}
-
-function gameLoop(playerBoard, botBoard, controller) {
-  controller.handleUserPlacement();
-  controller.handleBotPlacement();
-  if (playerBoard.isGameOver() || botBoard.isGameOver()) {
-    console.log("game over");
-  } else {
-    gameLoop();
+  try {
+    await initController.playerInitShips();
+  } catch (err) {
+    console.log(err);
   }
 }
 
-init(playerBoard, botBoard);
+async function gameLoop(playerBoard, botBoard, controller) {
+  await controller.handleUserPlacement();
+  controller.handleBotPlacement();
+  if (playerBoard.isGameOver() || botBoard.isGameOver()) {
+    console.log("game over");
+    return true;
+  } else {
+    return false;
+  }
+  return false;
+}
 
-const controller = new gameLoopController(playerBoard, botBoard);
+async function main() {
+  await init(playerBoard, botBoard);
 
-gameLoop(playerBoard, botBoard, controller);
+  const controller = new gameLoopController(playerBoard, botBoard);
+  controller.init();
+  let gameFinished = await gameLoop(playerBoard, botBoard, controller);
+  while (!gameFinished) {
+    gameFinished = await gameLoop(playerBoard, botBoard, controller);
+  }
+  console.log("finished");
+}
+
+main();

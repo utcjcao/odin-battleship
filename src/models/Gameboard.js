@@ -24,20 +24,20 @@ class Gameboard {
       return false;
     }
     if (direction == "horz") {
-      if (x + length >= 10) {
+      if (y + length >= 10) {
         return false;
       }
-      for (let i = 0; i < 10; i++) {
-        if (this.cells[y][x + i].ship != null) {
+      for (let i = 0; i < length; i++) {
+        if (this.cells[x][y + i].ship != null) {
           return false;
         }
       }
     } else {
-      if (y + length >= 10) {
+      if (x + length >= 10) {
         return false;
       }
-      for (let i = 0; i < 10; i++) {
-        if (this.cells[y + i][x].ship != null) {
+      for (let i = 0; i < length; i++) {
+        if (this.cells[x + i][y].ship != null) {
           return false;
         }
       }
@@ -50,11 +50,11 @@ class Gameboard {
       const newShip = new Battleship(length);
       if (direction == "horz") {
         for (let i = 0; i < length; i++) {
-          this.cells[y][x + i].ship = newShip;
+          this.cells[x][y + i].ship = newShip;
         }
       } else {
         for (let i = 0; i < length; i++) {
-          this.cells[y + i][x].ship = newShip;
+          this.cells[x + i][y].ship = newShip;
         }
       }
       return true;
@@ -64,10 +64,11 @@ class Gameboard {
   }
 
   destroy(x, y) {
-    if (this.cells[y][x].attacked == false) {
-      const shipDestroyed = this.cells[y][x].destroy();
+    if (this.cells[x][y].attacked == false) {
+      const shipDestroyed = this.cells[x][y].destroy();
       if (shipDestroyed) {
         this.shipsSunk += 1;
+        console.log("ship sinks");
       }
       return true; // return if the hit was successful (no previous hit)
     } else {

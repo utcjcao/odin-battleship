@@ -2,6 +2,9 @@ function updateInitView(board, direction, length) {
   const boardContainer = document.getElementById("game-container");
   boardContainer.innerHTML = ""; // clear prev board
 
+  const initBoardContainer = document.createElement("div");
+  initBoardContainer.id = "init-board"; // clear prev board
+
   //  add the hover effect and the ids to each button
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
@@ -11,9 +14,11 @@ function updateInitView(board, direction, length) {
         cellBtn.classList.add("ship-present");
       }
       shipPreviewHover(cellBtn, i, j, direction, length);
-      boardContainer.appendChild(cellBtn);
+      initBoardContainer.appendChild(cellBtn);
     }
   }
+
+  boardContainer.appendChild(initBoardContainer);
 }
 
 function shipPreviewHover(cellBtn, x, y, direction, length) {

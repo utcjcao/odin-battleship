@@ -2,7 +2,7 @@ import updateInitView from "../views/updateInitView";
 
 class initBoardController {
   constructor(playerBoard, botBoard) {
-    this.direction = false;
+    this.direction = "horz";
     this.playerBoard = playerBoard;
     this.botBoard = botBoard;
   }
@@ -23,14 +23,26 @@ class initBoardController {
     }
   }
   async playerInitShips() {
-    for (let i = 5; i >= 2; i--) {
-      updateInitView(this.playerBoard, this.direction, i);
-      await this.handleUserPlacement(i);
+    let i = 5;
+    while (i >= 2) {
+      try {
+        updateInitView(this.playerBoard, this.direction, i);
+        await this.handleUserPlacement(i);
+        i -= 1;
+      } catch {
+        this.direction = this.direction == "vert" ? "horz" : "vert";
+        updateInitView(this.playerBoard, this.direction, i);
+      }
     }
   }
 
   async handleUserPlacement(length) {
-    await new Promise((resolve) => {
+    await new Promise((resolve, reject) => {
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "L" || event.key === "l") {
+          reject("rotated");
+        }
+      });
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
           const id = i.toString() + ", " + j.toString();

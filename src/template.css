@@ -1,3 +1,58 @@
 body {
     font-family: monospace;
+    display: flex;    
+    gap: 20px;
+    align-items: center;
+    align-content: center;
+}
+
+#game-container {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 10px;
+}
+
+#player-board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); 
+    grid-template-rows: repeat(10, 1fr); 
+}
+
+#bot-board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); 
+    grid-template-rows: repeat(10, 1fr); 
+}
+
+#init-board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); 
+    grid-template-rows: repeat(10, 1fr); 
+}
+
+.ship-present {
+    background-color: blue;
+    border: none;
+}
+
+.ship-struck {
+    background-color: red;
+
+}
+
+.nothing-struck {
+    background-color: grey;
+
+}
+
+.hover {
+    /* background-color: yellow; */
+    border: none;
+
+}
+
+button {
+    height: 50px;
+    width: 50px;
+    background-color: white;
 }

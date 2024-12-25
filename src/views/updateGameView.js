@@ -16,7 +16,7 @@ function renderPlayerBoard(playerBoard) {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       const cellBtn = document.createElement("button");
-      cellBtn.id = i.toString() + ", " + j.toString();
+      cellBtn.id = i.toString() + ", " + j.toString() + ", player";
       // board attacked and hit
       if (
         playerBoard.cells[i][j].attacked &&
@@ -29,7 +29,7 @@ function renderPlayerBoard(playerBoard) {
       ) {
         // board attacked but no hits
         cellBtn.classList.add("nothing-struck");
-      } else if (playerBoard.cells[i][j] != null) {
+      } else if (playerBoard.cells[i][j].ship != null) {
         // shows that a ship is present
         cellBtn.classList.add("ship-present");
       } else {
@@ -48,7 +48,7 @@ function renderBotBoard(botBoard) {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       const cellBtn = document.createElement("button");
-      cellBtn.id = i.toString() + ", " + j.toString();
+      cellBtn.id = i.toString() + ", " + j.toString() + ", bot";
       // board attacked and hit
       if (botBoard.cells[i][j].attacked && botBoard.cells[i][j].ship != null) {
         cellBtn.classList.add("ship-struck");

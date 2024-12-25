@@ -6,7 +6,11 @@ class gameLoopController {
     this.botBoard = botBoard;
   }
 
-  static getRandomInt(min, max) {
+  init() {
+    updateGameView(this.playerBoard, this.botBoard);
+  }
+
+  getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
@@ -16,8 +20,9 @@ class gameLoopController {
     const validAttack = this.playerBoard.destroy(randX, randY);
     if (validAttack) {
       updateGameView(this.playerBoard, this.botBoard);
+      console.log("valid attack", randX, randY);
     } else {
-      this.botPlacement(); // rerun
+      this.handleBotPlacement(); // rerun
     }
   }
 
@@ -25,13 +30,14 @@ class gameLoopController {
     await new Promise((resolve) => {
       for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
-          const id = i.toString() + ", " + j.toString();
+          const id = i.toString() + ", " + j.toString() + ", bot";
           const cellBtn = document.getElementById(id);
 
           cellBtn.addEventListener("click", () => {
-            const validAttack = this.playerBoard.destroy(i, j);
+            const validAttack = this.botBoard.destroy(i, j);
             if (validAttack) {
               resolve("user shot a cell");
+              console.log("valid");
               updateGameView(this.playerBoard, this.botBoard);
             }
           });
